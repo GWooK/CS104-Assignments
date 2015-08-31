@@ -1,0 +1,42 @@
+Problem 1
+Part (a)
+Answers (Acceptable behaviours):
+1)Looking up information relevant to the course online.
+5)Asking the course staff for help.
+
+Part(b)
+Answers (recommended ways):
+2) emacs
+3) Eclipse
+4) sublime
+5) Microsoft Visual Studio
+
+Part(c)
+2. Each student has 4 late days of which only 1 can be used per HW
+
+Part(d)
+2. Complete the online late submission form
+3. Start the next HW sooner
+
+Part(e)
+3. Yes, but only if there is a technical difficulty with submission.
+
+Problem 2
+Part(a):
+1. Git Bash(Windows)
+2. Terminal (Mac or Linux)
+
+Part(b):
+1. Git add hw1q2b.cpp
+2. Git log -3
+
+Part(c):
+First, as a message must be associated with a commit, Git will open a text editor to you write this message. When you type this message, Git will make the changes be part of the repository history (and the version control).
+
+
+Problem 4
+
+- Any single letter (character) is correct
+- A sequence of letters is correct
+- Matched Rounds () and Matched Squares [] are correct
+- Matched Rounds () or Matched Squares [] enclosing any correct sequence are correct
