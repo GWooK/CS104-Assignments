@@ -1,0 +1,8 @@
+(a) unmodified
+(b) README.md is modified
+	fun_problem.txt is untracked
+(c) README.md and fun_problem.txt are staged
+(d) README.md and fun_problem.txt are modified
+(e) README.md is modified, fun_problem.txt is unmodified
+	The content of fun_problem.txt was restored to the previous commit state
+(f) README.md has staged changes added in part (e), the echo command write a new line, so this change is in modified status
