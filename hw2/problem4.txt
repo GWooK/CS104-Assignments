@@ -1,0 +1,3 @@
+1) A set of strings, each string consist of one word that appear in that web page.
+2) A map of sets of strings, the map uses the student id as a key, each student has an associated set of strings, each string has the code of a class which the student is enrolled.
+3) A list of strings, probaly implemented as a Queue. Each string has the name of a country, using this list we can know easily the order of the march.
