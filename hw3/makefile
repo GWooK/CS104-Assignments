@@ -10,11 +10,18 @@ GTEST_LL = -I /usr/local/opt/gtest/include/ -l gtest -l gtest_main -pthread
 $(BIN_DIR)/alisttest: alisttest.cpp alistint.cpp
 	$(CC) $(CPPFLAGS) $^ $(GTEST_LL) -o $@
 
+$(BIN_DIR)/stackinttest: stackinttest.cpp stackint.cpp alistint.cpp
+	$(CC) $(CPPFLAGS) $^ $(GTEST_LL) -o $@
+
 .PHONY: alistest
 
 alisttest: $(BIN_DIR)/alisttest 
 	-@$(BIN_DIR)/alisttest
 	-@echo "--- All Tested!---"
 
+stackinttest: $(BIN_DIR)/stackinttest
+	-@$(BIN_DIR)/stackinttest
+	-@echo "--- All Tested!---"
 clear:
 	rm $(BIN_DIR)/alisttest
+	rm $(BIN_DIR)/stackinttest
