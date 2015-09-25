@@ -22,6 +22,10 @@ alisttest: $(BIN_DIR)/alisttest
 stackinttest: $(BIN_DIR)/stackinttest
 	-@$(BIN_DIR)/stackinttest
 	-@echo "--- All Tested!---"
+
+parser: stackint.cpp alistint.cpp parser.cpp
+	$(CC) $(CPPFLAGS)  -std=c++11 $^ -o $@
+
 clear:
 	rm $(BIN_DIR)/alisttest
 	rm $(BIN_DIR)/stackinttest

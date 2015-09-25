@@ -13,7 +13,7 @@ bool StackInt::empty() const{
 }
 
 void StackInt::push(const int& val){
-	list_.insert(list_.size()-1, val);
+	list_.insert(list_.size(), val);
 }
 
 int const & StackInt::top() const{
