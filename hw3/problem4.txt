@@ -1,4 +1,4 @@
 a) O(n)
 b) 
-c) O(1)
+c) O(1). It's a good idea, worst-case runtime will not be so higher in the average.
 d) 
