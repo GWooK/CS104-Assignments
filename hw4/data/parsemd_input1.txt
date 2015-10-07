@@ -1,0 +1,3 @@
+Testing to see how students handle a file with some regular input, and
+perhaps there are a few links, like [this](www.google.com) and maybe like
+[USC](www.usc.edu), and one more (facebook.com).
