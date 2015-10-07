@@ -36,6 +36,10 @@ int main(int argc, char* argv[])
       done = true;
     }
 
+    if(myline == ""){
+      continue;
+    }
+
     set<WebPage *> results = engine.query(myline);
     display_results(results);
   }
