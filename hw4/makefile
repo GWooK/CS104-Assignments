@@ -18,7 +18,10 @@ parsertester: parsertester.cpp markdownparser.cpp myset.cpp
 
 webpagetester: webpagetester.cpp webpage.cpp markdownparser.cpp myset.cpp
 	$(CC) $(CPPFLAGS)  -std=c++11 $^ -o $@
+
+search: search.cpp searcheng.cpp util.cpp webpage.cpp markdownparser.cpp myset.cpp
+	$(CC) $(CPPFLAGS)  -std=c++11 $^ -o $@
 clear:
-	rm myset
 	rm parsertester
 	rm markdownparser
+	rm search

@@ -18,12 +18,13 @@ class SearchEng {
 		      PageParser* parser);
 
   /**** Add other desired member functions here *****/
-
-
+  WebPage * get_webpage(std::string filename);
+  void add_to_wordmap(std::string word, std::string filename);
+  MySetWebPage word_query(std::string word);
+  std::set<WebPage *> query(std::string entry);
  private:
-  /**** Add other desired data members here *****/
-
-
+ std::map<std::string, MySetString> wordToFilenamesSetMap;
+ std::map<std::string, WebPage *> filenameToWebPageMap;
 };
 
 #endif

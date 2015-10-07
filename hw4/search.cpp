@@ -2,7 +2,7 @@
 #include <set>
 #include <vector>
 #include <string>
-
+#include "markdownparser.h"
 #include "webpage.h"
 #include "searcheng.h"
 
@@ -17,10 +17,10 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  /****************   Add code to ***************************/
-  /* Initialize your search engine and parse all the pages */
-
-
+  //Initialize the search engine
+  SearchEng engine;
+  PageParser * mdParser = new MarkdownParser();
+  engine.add_parse_from_index_file(argv[1], mdParser);
 
 
   string myline;
@@ -31,14 +31,16 @@ int main(int argc, char* argv[])
     getline(cin, myline);
     cout << "++++++++++++++++++++\n" << endl;
 
-    /* Add your code here and feel free to modify    */
-    /*  what is above but don't change the display.  */
-    /* Call display_results() with the set of pages  */
-    /*  that match the search. It will display the   */
-    /*  matching results to the screen for you.      */
-
+    //Exit the application
+    if(myline == "."){
+      done = true;
     }
+
+    set<WebPage *> results = engine.query(myline);
+    display_results(results);
   }
+
+  delete mdParser;
   return 0;
 }
 

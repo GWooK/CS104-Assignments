@@ -17,6 +17,15 @@ MySetString MySetString::set_intersection(const MySetString& other) {
 		it++;
 	}
 
+	it = other.begin();
+	while(it != other.end()){
+		if(other.count(*it) > 0){
+			newSet.insert(*it);
+		}
+		it++;
+	}
+
+
 	return newSet;
 }
 
@@ -28,12 +37,14 @@ MySetString MySetString::set_union(const MySetString& other) {
 	MySetString::iterator it = begin();
 	while(it != end()){
 		newSet.insert(*it);
+		it++;
 	}
 
 	//Iterate the second set
 	it = other.begin();
 	while(it != other.end()){
 		newSet.insert(*it);
+		it++;
 	}
 
 	return newSet;
@@ -54,6 +65,14 @@ MySetWebPage MySetWebPage::set_intersection(const MySetWebPage& other) {
 		it++;
 	}
 
+	it = other.begin();
+	while(it != other.end()){
+		if(other.count(*it) > 0){
+			newSet.insert(*it);
+		}
+		it++;
+	}
+
 	return newSet;
 }
 
@@ -65,12 +84,14 @@ MySetWebPage MySetWebPage::set_union(const MySetWebPage& other) {
 	MySetWebPage::iterator it = begin();
 	while(it != end()){
 		newSet.insert(*it);
+		it++;
 	}
 
 	//Iterate the second set
 	it = other.begin();
 	while(it != other.end()){
 		newSet.insert(*it);
+		it++;
 	}
 
 	return newSet;

@@ -49,6 +49,8 @@ void parseLink(MySetString& allWords,
 				linkIsOk = true;
 				break;
 			}
+
+			//If the link has a whitespace, it's invalid
 			if(c == ' '){
 				break;
 			}

@@ -13,7 +13,7 @@ WebPage::WebPage(std::string filename){
 }
 
 WebPage::~WebPage(){
-	outgoing_links_.clear();
+	
 }
 
 void WebPage::all_words(const MySetString& words){
@@ -106,5 +106,6 @@ std::ostream & operator<< (std::ostream & os, const WebPage & page){
 		}
 	}
 	os << outputBuffer;
+	input.close();
 	return os;
 }
