@@ -1,0 +1,1 @@
+[Anchor!A](someLinkInside) a [Anchora](anotherLinkInside)

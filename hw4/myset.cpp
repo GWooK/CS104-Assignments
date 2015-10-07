@@ -35,6 +35,8 @@ MySetString MySetString::set_union(const MySetString& other) {
 	while(it != other.end()){
 		newSet.insert(*it);
 	}
+
+	return newSet;
 }
 
 MySetWebPage::MySetWebPage() : std::set<WebPage*>() {}
@@ -70,4 +72,6 @@ MySetWebPage MySetWebPage::set_union(const MySetWebPage& other) {
 	while(it != other.end()){
 		newSet.insert(*it);
 	}
+
+	return newSet;
 }
