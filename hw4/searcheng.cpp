@@ -99,10 +99,11 @@ std::set<WebPage *> SearchEng::query(std::string entry){
 	std::vector<std::string> entries = split(entry, ' ');
 	
 	//Select the operator
+	entries[0] = convToLower(entries[0]);
 	char op = 'a';
-	if(entries[0] == "AND"){
+	if(entries[0] == "and"){
 		op = '&';
-	} else if(entries[0] == "OR"){
+	} else if(entries[0] == "or"){
 		op = '|';
 	}
 
