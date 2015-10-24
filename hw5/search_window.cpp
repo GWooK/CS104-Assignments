@@ -2,7 +2,6 @@
 #include "msort.h"
 #include "QApplication"
 #include "util.h"
-#include <iostream>
 
 using namespace std;
 SearchWindow::SearchWindow(){
@@ -113,8 +112,6 @@ void SearchWindow::search(){
 		query = "or " + query;
 		break;
 	}
-
-	std::cout << query << std::endl;
 
 	if(queryIsInvalid){
 		//Show error pop up!
