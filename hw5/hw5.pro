@@ -7,6 +7,7 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 QMAKE_CXXFLAGS += -std=c++11
+CONFIG += debug
 
 # Input
 HEADERS += markdownparser.h \
@@ -16,7 +17,8 @@ HEADERS += markdownparser.h \
            search_window.h \
            searcheng.h \
            util.h \
-           webpage.h
+           webpage.h \
+           webpage_window.h
 SOURCES += markdownparser.cpp \
            myset.cpp \
            pageparser.cpp \
@@ -24,4 +26,5 @@ SOURCES += markdownparser.cpp \
            search_window.cpp \
            searcheng.cpp \
            util.cpp \
-           webpage.cpp
+           webpage.cpp \
+           webpage_window.cpp

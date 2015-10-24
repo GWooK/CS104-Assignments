@@ -2,6 +2,7 @@
 #include "msort.h"
 #include "QApplication"
 #include "util.h"
+#include <iostream>
 
 using namespace std;
 SearchWindow::SearchWindow(){
@@ -14,6 +15,7 @@ SearchWindow::SearchWindow(){
 	legendLabel = new QLabel("Filename\t#Incoming Links\t#Outgoing Links");
 	resultsLayout->addWidget(legendLabel);
 	resultListWidget = new QListWidget();
+	connect(resultListWidget, SIGNAL(currentRowChanged(int)), this, SLOT(displayWebpage(int)));
 	resultsLayout->addWidget(resultListWidget);
 
 
@@ -77,6 +79,8 @@ SearchWindow::SearchWindow(){
 	//Set layout
 	setLayout(overallLayout);
 
+	//Create webpage window
+	webpageWin = new WebPageWindow();
 
 	/*SearchEngine stuff*/
 	engine.add_parse_from_index_file(QCoreApplication::arguments().at(1).toStdString(), &mdParser);
@@ -95,22 +99,39 @@ void SearchWindow::search(){
 
 	//Check operator
 	int op = searchButtonGroup->checkedId();
+	bool queryIsInvalid = false;
 	switch(op){
 		case 0:
-
+		queryIsInvalid = split(query, ' ').size() > 1;
 		break;
 		case 1:
-		query = "AND " + query;
+		queryIsInvalid = split(query, ' ').size() < 2;
+		query = "and " + query;
 		break;
 		case 2:
-		query = "OR " + query;
+		queryIsInvalid = split(query, ' ').size() < 2;
+		query = "or " + query;
 		break;
+	}
+
+	std::cout << query << std::endl;
+
+	if(queryIsInvalid){
+		//Show error pop up!
+		QWidget * popup = new QWidget();
+		QHBoxLayout * popuplayout = new QHBoxLayout();
+		QLabel * messageLabel = new QLabel("Invalid input!");
+		popuplayout->addWidget(messageLabel);
+		popup->setLayout(popuplayout);
+		popup->show();
+		return;
 	}
 
 	//Search and update the list
 	set<WebPage *> resultSet = engine.query(query);
 	resultList.clear();
 	for(WebPage * page : resultSet){
+		std::cout << page->filename() << std::endl;
 		resultList.push_back(page);
 	}
 
@@ -158,4 +179,12 @@ void SearchWindow::sortResultList(){
 		mergeSort(resultList, compO);
 		break;
 	}
+}
+
+void SearchWindow::displayWebpage(int pageIndex){
+	if(pageIndex >= resultList.size())
+		return;
+
+	webpageWin->updateWebPage(resultList[pageIndex]);
+	webpageWin->show();
 }

@@ -12,6 +12,7 @@
 #include "markdownparser.h"
 #include "webpage.h"
 #include "searcheng.h"
+#include "webpage_window.h"
 
 class SearchWindow : public QWidget{
 	Q_OBJECT
@@ -23,6 +24,7 @@ private slots:
 	void quit();
 	void updateResultList();
 	void sortResultList();
+	void displayWebpage(int pageIndex);
 private:
 	QHBoxLayout * overallLayout;
 
@@ -52,6 +54,7 @@ private:
 	QPushButton * quitButton;
 
 	/*Web page window */
+	WebPageWindow * webpageWin;
 
 	/*Search Engine */
 	SearchEng engine;
