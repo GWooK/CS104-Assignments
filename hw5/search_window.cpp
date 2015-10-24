@@ -58,6 +58,9 @@ SearchWindow::SearchWindow(){
 	orderingButtonGroup->addButton(filenameRadio, 0);
 	orderingButtonGroup->addButton(incomingRadio, 1);
 	orderingButtonGroup->addButton(outgoingRadio, 2);
+	connect(filenameRadio, SIGNAL(clicked()), this, SLOT(updateResultList()));
+	connect(incomingRadio, SIGNAL(clicked()), this, SLOT(updateResultList()));
+	connect(outgoingRadio, SIGNAL(clicked()), this, SLOT(updateResultList()));
 	orderingLayout->addLayout(orderingRadioButtonsLayout);
 	
 	//Layouting...
@@ -139,5 +142,20 @@ void SearchWindow::updateResultList(){
 }
 
 void SearchWindow::sortResultList(){
-
+	//Check operator
+	int op = orderingButtonGroup->checkedId();
+	switch(op){
+		case 0:
+		FilenameComp compF;
+		mergeSort(resultList, compF);
+		break;
+		case 1:
+		IncomingLinksComp compI;
+		mergeSort(resultList, compI);
+		break;
+		case 2:
+		OutgoingLinksComp compO;
+		mergeSort(resultList, compO);
+		break;
+	}
 }

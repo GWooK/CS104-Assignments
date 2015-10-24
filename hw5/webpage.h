@@ -79,4 +79,20 @@ class WebPage
   std::string filename_;
   
 };
+
+class FilenameComp{
+public:
+  bool operator()(WebPage * lhs, WebPage * rhs){ return lhs->filename() < rhs->filename();}
+};
+
+class IncomingLinksComp{
+public:
+  bool operator()(WebPage * lhs, WebPage * rhs){return lhs->number_of_incoming_links() < rhs->number_of_incoming_links();}
+};
+
+class OutgoingLinksComp{
+public:
+  bool operator()(WebPage * lhs, WebPage * rhs){ return lhs->number_of_outgoing_links() < rhs->number_of_outgoing_links();}
+};
+
 #endif
