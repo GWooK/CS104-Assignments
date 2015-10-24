@@ -1,0 +1,4 @@
+Lets see how student handl input with punctuation in the middle of words!
+a!b!c@d#e$f$g%h^i&j*k*l)m&
+And maybe we can test how they handle white space:
+a b c     d        e    f   g   hij  k   l  m 

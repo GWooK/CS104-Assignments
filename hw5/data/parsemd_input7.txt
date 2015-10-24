@@ -1,0 +1,21 @@
+This test will contain several strange edge cases for links.
+
+BEGIN Empty link, empty anchor text: []()
+
+BEGIN Empty link, empty anchor text: ()
+
+BEGIN Empty link, empty anchor text with words following: []();;These words should display.
+
+BEGIN Empty link, USC anchor text: [USC]()
+
+BEGIN Empty anchor text, USC link: [](USC)
+
+BEGIN USC link and anchor text: [These should be separate words] (USC)
+
+BEGIN Empty link, empty anchor text with several spaces inside: [  ](         )
+
+BEGIN Link to Google with spaces in the link: (ww     w.   goo gl   e     .c   om)
+
+BEGIN Link with strange characters and spaces: [@@ 3](&   5)
+
+BEGIN Link with empty spaces: (    )

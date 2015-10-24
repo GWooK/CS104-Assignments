@@ -1,0 +1,1 @@
+This tests for the empty links and anchors. Program should first find anchor and link for bits website [BITS](bits.usc.edu). Next, it must also be able to interpret empty anchors and links, like this one [](), and also only empty links () like this one.

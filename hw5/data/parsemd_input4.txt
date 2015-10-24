@@ -1,0 +1,6 @@
+[This is not a link because it has spaces in it](www.usc.edu)
+[This is also not a link]
+However, this is a valid link:
+[Link](link.com/putting?some?extra+=punctuation%into/this/link.jpg.meta)
+[OneWordInBracketsWithoutLink]
+(a.link.com/without/brackets)
