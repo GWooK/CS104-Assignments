@@ -2,7 +2,6 @@
 #include <sstream>
 #include "msort.h"
 #include "myset.h"
-#include <iostream>
 
 WebPageWindow::WebPageWindow(){
 	QVBoxLayout *  overallLayout = new QVBoxLayout();
@@ -71,8 +70,6 @@ void WebPageWindow::updateWebPage(WebPage * webpage){
 		return;
 
 	page = webpage;
-
-	std::cout << page->filename() << std::endl;
 
 	//Filename
 	filenameLabel->setText(QString::fromStdString(page->filename()));
