@@ -1,6 +1,7 @@
 #include "searcheng.h"
 #include <fstream>
 #include "util.h"
+#include <iostream>
 
 SearchEng::SearchEng(){
 
@@ -122,6 +123,9 @@ std::set<WebPage *> SearchEng::query(std::string entry){
 	for(unsigned int i = 1; i < entries.size(); i++){
 		MySetWebPage localSet = word_query(entries[i]);
 		if(op == '&'){
+			if(i == 1){
+				set = localSet;
+			}
 			set = set.set_intersection(localSet);
 		} else if(op == '|') {
 			set = set.set_union(localSet);
