@@ -19,10 +19,7 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  //Initialize the search engine
-  SearchEng engine;
-  PageParser * mdParser = new MarkdownParser();
-  engine.add_parse_from_index_file(argv[1], mdParser);
+  //engine.add_parse_from_index_file(argv[1], mdParser);
 
   //QT stuff
   QApplication app(argc, argv);
