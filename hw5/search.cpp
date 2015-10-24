@@ -1,16 +1,10 @@
 #include <iostream>
-#include <set>
-#include <vector>
-#include <string>
-#include "markdownparser.h"
-#include "webpage.h"
-#include "searcheng.h"
 #include "search_window.h"
 #include <QApplication>
 
 using namespace std;
 
-void display_results(set<WebPage*>& results);
+//void display_results(set<WebPage*>& results);
 
 int main(int argc, char* argv[])
 {
@@ -30,6 +24,7 @@ int main(int argc, char* argv[])
   return app.exec();
 }
 
+/*
 void display_results(set<WebPage*>& results)
 {
   int hits = results.size();
@@ -46,4 +41,4 @@ void display_results(set<WebPage*>& results)
       i++;
     }
   
-}
+}*/

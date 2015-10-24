@@ -1,3 +1,4 @@
+#include <QCoreApplication>
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QLineEdit>
@@ -7,6 +8,7 @@
 #include <QRadioButton>
 #include <QButtonGroup>
 #include "myset.h"
+#include <vector>
 #include "markdownparser.h"
 #include "webpage.h"
 #include "searcheng.h"
@@ -16,6 +18,11 @@ class SearchWindow : public QWidget{
 public:
 	SearchWindow();
 	~SearchWindow();
+private slots:
+	void search();
+	void quit();
+	void updateResultList();
+	void sortResultList();
 private:
 	QHBoxLayout * overallLayout;
 
@@ -47,9 +54,9 @@ private:
 	/*Web page window */
 
 	/*Search Engine */
-	SearchEngine engine;
+	SearchEng engine;
 	MarkdownParser mdParser;
 
 	/*Data*/
-	std::set<WebPage *> resultSet;
+	std::vector<WebPage *> resultList;
 };

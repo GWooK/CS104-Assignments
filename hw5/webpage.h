@@ -45,6 +45,11 @@ class WebPage
   MySetWebPage incoming_links() const { return incoming_links_;} ;
 
   /**
+   * Returns the number of incoming links
+   */
+  int number_of_incoming_links() { return incoming_links_.size();};
+
+  /**
    * Adds a webpage that this page links to
    */
   void add_outgoing_link(WebPage* wp);
@@ -53,6 +58,11 @@ class WebPage
    * Returns all webpages this page links to
    */
   MySetWebPage outgoing_links() const { return outgoing_links_;};
+
+  /**
+   * Returns the number of outgoing links
+   */
+  int number_of_outgoing_links() { return outgoing_links_.size();};
 
   /**
    * Displays the webpage text to the screen 

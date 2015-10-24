@@ -21,3 +21,9 @@ std::vector<std::string> split(const std::string s, char delimiter) {
    	return v;
 }
 
+std::string intToString(int n){
+	std::stringstream ss;
+	ss << n;
+	return ss.str();
+}
+

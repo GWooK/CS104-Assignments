@@ -6,5 +6,6 @@
 
 std::string convToLower(std::string src);
 std::vector<std::string> split(const std::string s, char c);
+std::string intToString(int n);
 
 #endif
