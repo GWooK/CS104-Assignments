@@ -128,7 +128,6 @@ void SearchWindow::search(){
 	set<WebPage *> resultSet = engine.query(query);
 	resultList.clear();
 	for(WebPage * page : resultSet){
-		std::cout << page->filename() << std::endl;
 		resultList.push_back(page);
 	}
 
@@ -145,7 +144,7 @@ void SearchWindow::updateResultList(){
 	sortResultList();
 
 	//Clear the list
-	while(resultListWidget->count() > 0){
+	while((int)resultListWidget->count() > 0){
 		auto item = resultListWidget->takeItem(0);
 		delete item;
 	}
@@ -179,7 +178,7 @@ void SearchWindow::sortResultList(){
 }
 
 void SearchWindow::displayWebpage(int pageIndex){
-	if(pageIndex >= resultList.size())
+	if(pageIndex >= (int)resultList.size())
 		return;
 
 	webpageWin->updateWebPage(resultList[pageIndex]);
