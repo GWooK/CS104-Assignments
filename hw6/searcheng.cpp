@@ -87,6 +87,8 @@ MySet<WebPage *> SearchEng::word_query(std::string word){
 	if(iter != wordToFilenamesSetMap.end()){
 		for(std::string filename : iter->second){
 			set.insert(get_webpage(filename));
+			set = set.set_union(get_webpage(filename)->incoming_links());
+			set = set.set_union(get_webpage(filename)->outgoing_links());
 		}
 	}
 
