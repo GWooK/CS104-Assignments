@@ -16,7 +16,8 @@ HEADERS += markdownparser.h \
            searcheng.h \
            util.h \
            webpage.h \
-           webpage_window.h
+           webpage_window.h \
+           config.h
 SOURCES += markdownparser.cpp \
            pageparser.cpp \
            search.cpp \
@@ -24,7 +25,8 @@ SOURCES += markdownparser.cpp \
            searcheng.cpp \
            util.cpp \
            webpage.cpp \
-           webpage_window.cpp
+           webpage_window.cpp \
+           config.cpp
 
 
 TARGET = search               # sets output executable name to search

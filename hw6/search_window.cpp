@@ -2,6 +2,7 @@
 #include "msort.h"
 #include "QApplication"
 #include "util.h"
+#include "config.h"
 
 using namespace std;
 SearchWindow::SearchWindow(){
@@ -82,7 +83,9 @@ SearchWindow::SearchWindow(){
 	webpageWin = new WebPageWindow();
 
 	/*SearchEngine stuff*/
-	engine.add_parse_from_index_file(QCoreApplication::arguments().at(1).toStdString(), &mdParser);
+	QLabel * test = new QLabel(QString::fromStdString(Config::Get("INDEX-FILE")));
+	test->show();
+	engine.add_parse_from_index_file(Config::Get("INDEX-FILE"), &mdParser);
 }
 
 SearchWindow::~SearchWindow(){

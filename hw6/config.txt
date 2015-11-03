@@ -1,0 +1,2 @@
+INDEX-FILE = data100/index.txt
+INDEX-FILE = data/index.txt
