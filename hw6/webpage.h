@@ -27,12 +27,12 @@ class WebPage
    * Updates the set containing all unique words in the text
    *  with the contents of the input parameter words
    */
-  void all_words(const MySetString& words);
+  void all_words(const MySet<std::string>& words);
 
   /**
    * Returns all the unique, tokenized words in this webpage 
    */
-  MySetString all_words() const { return all_words_;};
+  MySet<std::string> all_words() const { return all_words_;};
 
   /**
    * Adds a webpage that links to this page
@@ -42,7 +42,7 @@ class WebPage
   /**
    * Returns all webpages that link to this page
    */
-  MySetWebPage incoming_links() const { return incoming_links_;} ;
+  MySet<WebPage *> incoming_links() const { return incoming_links_;} ;
 
   /**
    * Returns the number of incoming links
@@ -57,7 +57,7 @@ class WebPage
   /**
    * Returns all webpages this page links to
    */
-  MySetWebPage outgoing_links() const { return outgoing_links_;};
+  MySet<WebPage *> outgoing_links() const { return outgoing_links_;};
 
   /**
    * Returns the number of outgoing links
@@ -73,9 +73,9 @@ class WebPage
 
  private:
   /**** Add other desired data members here *****/
-  MySetWebPage outgoing_links_;
-  MySetWebPage incoming_links_;
-  MySetString all_words_;
+  MySet<WebPage *> outgoing_links_;
+  MySet<WebPage *> incoming_links_;
+  MySet<std::string> all_words_;
   std::string filename_;
   
 };

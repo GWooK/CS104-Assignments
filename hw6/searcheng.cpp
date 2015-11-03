@@ -30,8 +30,8 @@ void SearchEng::add_parse_from_index_file(std::string index_file,
 void SearchEng::add_parse_page(std::string filename, 
 	      PageParser* parser){
 	//Declare the sets
-	MySetString all_words;
-	MySetString all_links;
+	MySet<std::string> all_words;
+	MySet<std::string> all_links;
 
 	//Parse
 	parser->parse(filename, all_words, all_links);
@@ -72,16 +72,16 @@ void SearchEng::add_to_wordmap(std::string word, std::string filename){
 	if(iter != wordToFilenamesSetMap.end()){
 		iter->second.insert(filename);
 	} else {
-		MySetString set;
+		MySet<std::string> set;
 		set.insert(filename);
 		wordToFilenamesSetMap[word] = set;
 	}
 }
 
 //Process a one word query
-MySetWebPage SearchEng::word_query(std::string word){
+MySet<WebPage *> SearchEng::word_query(std::string word){
 	word = convToLower(word);
-	MySetWebPage set;
+	MySet<WebPage *> set;
 
 	auto iter = wordToFilenamesSetMap.find(word);
 	if(iter != wordToFilenamesSetMap.end()){
@@ -118,9 +118,9 @@ std::set<WebPage *> SearchEng::query(std::string entry){
 	}
 
 	//AND/OR query
-	MySetWebPage set;
+	MySet<WebPage *> set;
 	for(unsigned int i = 1; i < entries.size(); i++){
-		MySetWebPage localSet = word_query(entries[i]);
+		MySet<WebPage *> localSet = word_query(entries[i]);
 		if(op == '&'){
 			if(i == 1){
 				set = localSet;

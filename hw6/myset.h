@@ -4,23 +4,64 @@
 #include <set>
 #include <string>
 
-// avoid circular reference
-class WebPage;
-
-class MySetString : public std::set<std::string>
-{
+template<class T>
+class MySet : public std::set<T>{
 public:
-  MySetString();
-  MySetString set_intersection(const MySetString& other);
-  MySetString set_union(const MySetString& other);
+  MySet();
+  MySet<T> set_intersection(const MySet<T>& other);
+  MySet<T> set_union(const MySet<T>& other);
 };
 
-class MySetWebPage : public std::set<WebPage*>
-{
-public:
-  MySetWebPage();
-  MySetWebPage set_intersection(const MySetWebPage& other);
-  MySetWebPage set_union(const MySetWebPage& other);
-};
+template<class T>
+MySet<T>::MySet() : std::set<T>() {
+}
+
+template<class T>
+MySet<T> MySet<T>::set_intersection(const MySet<T>& other) {
+	//Return set
+	MySet<T> newSet;
+
+	//Iterate
+	typename MySet<T>::iterator it = this->begin();
+	while(it != this->end()){
+		if(other.count(*it) > 0){
+			newSet.insert(*it);
+		}
+		it++;
+	}
+
+	it = other.begin();
+	while(it != other.end()){
+		if(this->count(*it) > 0){
+			newSet.insert(*it);
+		}
+		it++;
+	}
+
+
+	return newSet;
+}
+
+template<class T>
+MySet<T> MySet<T>::set_union(const MySet<T>& other) {
+	//Return set
+	MySet<T> newSet;
+
+	//Iterate the first set
+	typename MySet<T>::iterator it = this->begin();
+	while(it != this->end()){
+		newSet.insert(*it);
+		it++;
+	}
+
+	//Iterate the second set
+	it = other.begin();
+	while(it != other.end()){
+		newSet.insert(*it);
+		it++;
+	}
+
+	return newSet;
+}
 
 #endif

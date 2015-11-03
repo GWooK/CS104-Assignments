@@ -6,8 +6,8 @@ public:
 	MarkdownParser();
 
 	void parse(std::string filename,
-		     MySetString& allWords,
-		     MySetString& allLinks) override;
+		     MySet<std::string>& allWords,
+		     MySet<std::string>& allLinks) override;
 private:
 
 };

@@ -16,7 +16,7 @@ WebPage::~WebPage(){
 	
 }
 
-void WebPage::all_words(const MySetString& words){
+void WebPage::all_words(const MySet<std::string>& words){
 	all_words_ = words;
 }
 

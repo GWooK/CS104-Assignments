@@ -14,8 +14,8 @@ MarkdownParser::~MarkdownParser(){
 	
 }
 
-void parseLink(MySetString& allWords,
-	MySetString& allLinks, ifstream & input){
+void parseLink(MySet<string>& allWords,
+	MySet<string>& allLinks, ifstream & input){
 
 	//A copy of the stream
 	string desc = "";
@@ -98,8 +98,8 @@ void parseLink(MySetString& allWords,
 }
 
 void MarkdownParser::parse(string filename,
-	MySetString& allWords,
-	MySetString& allLinks){
+	MySet<string>& allWords,
+	MySet<string>& allLinks){
 
 	//Input
 	ifstream input(filename);

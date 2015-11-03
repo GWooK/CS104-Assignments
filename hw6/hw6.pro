@@ -18,7 +18,6 @@ HEADERS += markdownparser.h \
            webpage.h \
            webpage_window.h
 SOURCES += markdownparser.cpp \
-           myset.cpp \
            pageparser.cpp \
            search.cpp \
            search_window.cpp \
@@ -27,7 +26,7 @@ SOURCES += markdownparser.cpp \
            webpage.cpp \
            webpage_window.cpp
 
-            
+
 TARGET = search               # sets output executable name to search
 QMAKE_CXXFLAGS += -std=c++11  # enable C++11 libraries
 SOURCES -= msort_test.cpp # Don't compile certain test files as part of the search application
