@@ -2,6 +2,7 @@
 #include <sstream>
 #include "msort.h"
 #include "myset.h"
+#include "util.h"
 
 WebPageWindow::WebPageWindow(){
 	QVBoxLayout *  overallLayout = new QVBoxLayout();
@@ -44,8 +45,8 @@ WebPageWindow::WebPageWindow(){
 	orderingButtonGroup = new QButtonGroup();
 	filenameRadio = new QRadioButton("Filename");
 	filenameRadio->setChecked(true);
-	outgoingRadio = new QRadioButton("#Incoming Links");
-	incomingRadio = new QRadioButton("#Outgoing Links");
+	outgoingRadio = new QRadioButton("#Outgoing  Links");
+	incomingRadio = new QRadioButton("#Incoming Links");
 
 	orderingRadioButtonsLayout->addWidget(filenameRadio);
 	orderingRadioButtonsLayout->addWidget(incomingRadio);
@@ -126,6 +127,8 @@ void WebPageWindow::updateLists(){
 	}
 	for(WebPage * page : incomingList){
 		std::string pageString = page->filename();
+		pageString += "\tI:"+intToString(page->number_of_incoming_links());
+		pageString += "\tO:"+intToString(page->number_of_outgoing_links());
 		incomingLinksList->addItem(QString::fromStdString(pageString));
 	}
 
@@ -136,6 +139,8 @@ void WebPageWindow::updateLists(){
 	}
 	for(WebPage * page : outgoingList){
 		std::string pageString = page->filename();
+		pageString += "\tI:"+intToString(page->number_of_incoming_links());
+		pageString += "\tO:"+intToString(page->number_of_outgoing_links());
 		outgoingLinksList->addItem(QString::fromStdString(pageString));
 	}
 }

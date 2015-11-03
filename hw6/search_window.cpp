@@ -51,8 +51,8 @@ SearchWindow::SearchWindow(){
 	orderingButtonGroup = new QButtonGroup();
 	filenameRadio = new QRadioButton("Filename");
 	filenameRadio->setChecked(true);
-	outgoingRadio = new QRadioButton("#Incoming Links");
-	incomingRadio = new QRadioButton("#Outgoing Links");
+	outgoingRadio = new QRadioButton("#Outgoing Links");
+	incomingRadio = new QRadioButton("#Incoming Links");
 
 	orderingRadioButtonsLayout->addWidget(filenameRadio);
 	orderingRadioButtonsLayout->addWidget(incomingRadio);
