@@ -1,0 +1,2 @@
+INDEX-FILE = data/seed.txt
+OUTPUT-FILE = data/crowledindex.txt
