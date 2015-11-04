@@ -3,6 +3,7 @@
 #include "QApplication"
 #include "util.h"
 #include "config.h"
+#include "iostream"
 
 using namespace std;
 SearchWindow::SearchWindow(){
@@ -15,7 +16,7 @@ SearchWindow::SearchWindow(){
 	legendLabel = new QLabel("Filename\t#Incoming Links\t#Outgoing Links");
 	resultsLayout->addWidget(legendLabel);
 	resultListWidget = new QListWidget();
-	connect(resultListWidget, SIGNAL(currentRowChanged(int)), this, SLOT(displayWebpage(int)));
+	connect(resultListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(displayWebpage(QListWidgetItem *)));
 	resultsLayout->addWidget(resultListWidget);
 
 
@@ -178,8 +179,10 @@ void SearchWindow::sortResultList(){
 	}
 }
 
-void SearchWindow::displayWebpage(int pageIndex){
-	if(pageIndex >= (int)resultList.size())
+void SearchWindow::displayWebpage(QListWidgetItem *){
+	unsigned int pageIndex = (unsigned int) resultListWidget->currentRow();
+
+	if((int)pageIndex >= (int)resultList.size() || (int)pageIndex < 0)
 		return;
 
 	webpageWin->updateWebPage(resultList[pageIndex]);

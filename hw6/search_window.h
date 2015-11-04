@@ -24,7 +24,7 @@ private slots:
 	void quit();
 	void updateResultList();
 	void sortResultList();
-	void displayWebpage(int pageIndex);
+	void displayWebpage(QListWidgetItem *);
 private:
 	QHBoxLayout * overallLayout;
 
