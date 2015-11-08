@@ -6,6 +6,7 @@
 #include <vector>
 #include <queue>
 #include <set>
+#include <list>
 
 using namespace std;
 
@@ -119,6 +120,7 @@ int main(int argc, char* argv[])
 			if(debug)
 				cout << "reading link " << filename << endl;
 
+			std::list<string> linkBuffer;
 			while(input.get(c)){
 				//is c a letter?
 				if(isalpha(c)){
@@ -129,8 +131,11 @@ int main(int argc, char* argv[])
 					string link = parseLink(input);
 					if(link == "")
 						continue;
-					s.push(link);
+					linkBuffer.push_front(link);
 				}
+			}
+			for(string link : linkBuffer){
+				s.push(link);
 			}
 		}
 	}

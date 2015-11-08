@@ -1,4 +1,5 @@
 *.o
 hw6
 search
+crawler
 moc_*
