@@ -150,8 +150,6 @@ MySet<WebPage *> SearchEng::word_query(std::string word){
 	if(iter != wordToFilenamesSetMap.end()){
 		for(std::string filename : iter->second){
 			set.insert(get_webpage(filename));
-			set = set.set_union(get_webpage(filename)->incoming_links());
-			set = set.set_union(get_webpage(filename)->outgoing_links());
 		}
 	}
 
@@ -194,6 +192,12 @@ MySet<WebPage *> SearchEng::query(std::string entry){
 		} else if(op == '|') {
 			set = set.set_union(localSet);
 		}
+	}
+
+	//Expanding set
+	for(WebPage * page : set){
+		set = set.set_union(page->incoming_links());
+		set = set.set_union(page->outgoing_links());
 	}
 	return set;
 }

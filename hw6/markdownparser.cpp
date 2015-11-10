@@ -3,6 +3,7 @@
 #include <fstream>
 #include <ctype.h>
 #include <queue>
+#include <fstream>
 
 using namespace std;
 
@@ -12,6 +13,17 @@ MarkdownParser::MarkdownParser(){
 
 MarkdownParser::~MarkdownParser(){
 	
+}
+
+bool linkIsValid(std::string filename){
+	//Input
+	ifstream input(filename);
+
+	//Test if the link is valid
+	if(!input.is_open()){
+		return false;
+	}
+	return true;
 }
 
 void parseLink(MySet<string>& allWords,
@@ -76,7 +88,7 @@ void parseLink(MySet<string>& allWords,
 		}
 
 		//Insert link
-		if(link!=""){
+		if(link!="" && linkIsValid(link)){
 			allLinks.insert(link);
 		}
 	} else {
