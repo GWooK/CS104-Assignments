@@ -40,6 +40,7 @@ private:
 
 	/*Results ordering form*/
 	QButtonGroup * orderingButtonGroup;
+	QRadioButton * pageRankRadio;
 	QRadioButton * filenameRadio;
 	QRadioButton * outgoingRadio;
 	QRadioButton * incomingRadio;

@@ -4,6 +4,7 @@
 #include "util.h"
 #include "config.h"
 #include "iostream"
+#include "myset.h"
 
 using namespace std;
 SearchWindow::SearchWindow(){
@@ -13,7 +14,7 @@ SearchWindow::SearchWindow(){
 	/*Results Layout*/
 	resultsLayout = new QVBoxLayout();
 	overallLayout->addLayout(resultsLayout);
-	legendLabel = new QLabel("Filename\t#Incoming Links\t#Outgoing Links");
+	legendLabel = new QLabel("Filename\t#Incoming Links\t#Outgoing Links\tPagerank");
 	resultsLayout->addWidget(legendLabel);
 	resultListWidget = new QListWidget();
 	connect(resultListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(displayWebpage(QListWidgetItem *)));
@@ -50,20 +51,24 @@ SearchWindow::SearchWindow(){
 	orderingLayout->addWidget(legendLabel);
 	QHBoxLayout * orderingRadioButtonsLayout = new QHBoxLayout();
 	orderingButtonGroup = new QButtonGroup();
+	pageRankRadio = new QRadioButton("Pagerank");
+	pageRankRadio->setChecked(true);
 	filenameRadio = new QRadioButton("Filename");
-	filenameRadio->setChecked(true);
 	outgoingRadio = new QRadioButton("#Outgoing Links");
 	incomingRadio = new QRadioButton("#Incoming Links");
 
+	orderingRadioButtonsLayout->addWidget(pageRankRadio);
 	orderingRadioButtonsLayout->addWidget(filenameRadio);
 	orderingRadioButtonsLayout->addWidget(incomingRadio);
 	orderingRadioButtonsLayout->addWidget(outgoingRadio);
 	orderingButtonGroup->addButton(filenameRadio, 0);
 	orderingButtonGroup->addButton(incomingRadio, 1);
 	orderingButtonGroup->addButton(outgoingRadio, 2);
+	orderingButtonGroup->addButton(pageRankRadio, 3);
 	connect(filenameRadio, SIGNAL(clicked()), this, SLOT(updateResultList()));
 	connect(incomingRadio, SIGNAL(clicked()), this, SLOT(updateResultList()));
 	connect(outgoingRadio, SIGNAL(clicked()), this, SLOT(updateResultList()));
+	connect(pageRankRadio, SIGNAL(clicked()), this, SLOT(updateResultList()));
 	orderingLayout->addLayout(orderingRadioButtonsLayout);
 	
 	//Layouting...
@@ -127,7 +132,8 @@ void SearchWindow::search(){
 	}
 
 	//Search and update the list
-	set<WebPage *> resultSet = engine.query(query);
+	MySet<WebPage *> resultSet = engine.query(query);
+	engine.compute_pagerank(resultSet);
 	resultList.clear();
 	for(WebPage * page : resultSet){
 		resultList.push_back(page);
@@ -154,8 +160,9 @@ void SearchWindow::updateResultList(){
 	//Update the list
 	for(WebPage * page : resultList){
 		string pageString = page->filename();
-		pageString += "\t"+intToString(page->number_of_incoming_links());
-		pageString += "\t"+intToString(page->number_of_outgoing_links());
+		pageString += "\tI: "+intToString(page->number_of_incoming_links());
+		pageString += "\tO: "+intToString(page->number_of_outgoing_links());
+		pageString += "\tR: "+floatToString(engine.get_pagerank(page));
 		resultListWidget->addItem(QString::fromStdString(pageString));
 	}
 }
@@ -176,6 +183,11 @@ void SearchWindow::sortResultList(){
 		OutgoingLinksComp compO;
 		mergeSort(resultList, compO);
 		break;
+		case 3:
+		PagerankComp compRank(&engine);
+		mergeSort(resultList, compRank);
+		break;
+
 	}
 }
 

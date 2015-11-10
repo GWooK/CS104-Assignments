@@ -1,2 +1,2 @@
-INDEX-FILE = data/seed.txt
-OUTPUT-FILE = data/crowledindex.txt
+INDEX-FILE = data100/seed.txt
+OUTPUT-FILE = data100/crowledindex.txt

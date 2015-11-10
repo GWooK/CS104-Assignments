@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "util.h"
 #include <sstream>
+#include <iostream>
 
 std::string convToLower(std::string src) 
 {
@@ -27,3 +28,16 @@ std::string intToString(int n){
 	return ss.str();
 }
 
+std::string floatToString(float n){
+  std::stringstream ss;
+  ss << n;
+  return ss.str();
+}
+
+int stringToInt(std::string s){
+  return std::stoi(s);
+}
+
+float stringToFloat(std::string s){
+  return std::stof(s);
+}

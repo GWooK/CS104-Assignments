@@ -1,2 +1,1 @@
-data/p0.txt
-data/p5.txt
+data/p1.txt
