@@ -66,6 +66,56 @@ public:
      (with a possibly different associated value),
      then it should overwrite the value with the new one.
      We strongly recommend defining suitable (private) helper functions. */
+  {
+    auto node = BinarySearchTree<KeyType, ValueType>::insert(new_item);
+  }
+
+private:
+
+  /*Helper functions*/
+
+  //Left and right rotations
+  void rotateLeft(Node<KeyType, ValueType> * node){
+    if(node->getRight() == NULL){
+      return;
+    }
+
+    Node<KeyType, ValueType> * pRight = node->getRight();
+    node->setRight(pRight->getLeft());
+
+    if(node->getParent() == NULL){
+      BinarySearchTree<KeyType, ValueType>::root = pRight;
+    } else if(node->getParent()->getLeft() == node){
+      node->getParent()->setLeft(pRight);
+    } else{
+      node->getParent()->setRight(pRight);
+    }
+
+    pRight->setLeft(node);
+  }
+  void rotateRight(Node<KeyType, ValueType> * node){
+    if(node->getLeft() == NULL){
+      return;
+    }
+
+    Node<KeyType, ValueType> * pLeft = node->getLeft();
+    node->setLeft(pLeft->getRight());
+
+    if(node->getParent() == NULL){
+      BinarySearchTree<KeyType, ValueType>::root = pLeft;
+    } else if(node->getParent()->getLeft() == node){
+      node->getParent()->setLeft(pLeft);
+    } else{
+      node->getParent()->setRight(pLeft);
+    }
+
+    pLeft->setRight(node);
+  }
+
+
+
 };
+
+
 
 #endif

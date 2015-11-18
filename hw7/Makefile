@@ -8,7 +8,7 @@ BIN_DIR   = bin
 TESTS_DIR = tests
 DIRSTAMP  = $(BIN_DIR)/.dirstamp
 GTEST_LL  = -I/usr/local/opt/gtest/include/ -lgtest -lgtest_main -pthread
-TEST_TARGETS = $(BIN_DIR)/bstiteratortest
+TEST_TARGETS = $(BIN_DIR)/bstiteratortest $(BIN_DIR)/rbtreetest
 
 .PHONY: all clean $(TEST_TARGETS)
 
@@ -31,6 +31,10 @@ $(BIN_DIR)/%.o: %.cpp $(DIRSTAMP)
 $(BIN_DIR)/bstiteratortest: $(TESTS_DIR)/bstiteratortest.cpp $(DIRSTAMP)
 	$(CC) $(CPPFLAGS) $< $(GTEST_LL) -o $@
 
+$(BIN_DIR)/rbtreetest: $(TESTS_DIR)/rbtreetest.cpp $(DIRSTAMP)
+	$(CC) $(CPPFLAGS) $< $(GTEST_LL) -o $@
+
 tests: $(TEST_TARGETS)
 	-@$(BIN_DIR)/bstiteratortest
+	-@$(BIN_DIR)/rbtreetest
 	-@echo "--- All Tested!---"
