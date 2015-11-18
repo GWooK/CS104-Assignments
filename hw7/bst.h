@@ -126,6 +126,8 @@ class BinarySearchTree {
       parent->setLeft(node);
     } else if(parent->getKey() < key){
       parent->setRight(node);
+    } else{ //Is equal
+      parent->setValue(value);
     }
     return node;
   }
