@@ -102,34 +102,58 @@ class BinarySearchTree {
     std::cout << "\n";
   }
 
-  
-
-
-  Node<KeyType, ValueType> * insert(KeyType key, ValueType value){
+  Node<KeyType, ValueType> * insert(Node<KeyType, ValueType> * node){
     //Inserting a root node
     if(root == NULL){
-      Node<KeyType, ValueType> * node = new Node<KeyType, ValueType>(key, value, NULL);
+      //Node<KeyType, ValueType> * node = new Node<KeyType, ValueType>(key, value, NULL);
       root = node;
       return node;
     }
 
     //Inserting a leaf node
     Node<KeyType, ValueType> * parent = root;
-    Node<KeyType, ValueType> * next = parent->getKey() > key? parent->getLeft():parent->getRight();
+    Node<KeyType, ValueType> * next = parent->getKey() > node->getKey()? parent->getLeft():parent->getRight();
     while(next != NULL){
       parent = next;
-      next = parent->getKey() > key? parent->getLeft():parent->getRight();
+      if(parent->getKey() == node->getKey())
+        break;
+      next = parent->getKey() > node->getKey()? parent->getLeft():parent->getRight();
     }
 
-    Node<KeyType, ValueType> * node = new Node<KeyType, ValueType>(key, value, parent);
-    if(parent->getKey() > key){
+    //Node<KeyType, ValueType> * node = new Node<KeyType, ValueType>(key, value, parent);
+    if(parent->getKey() > node->getKey()){
       parent->setLeft(node);
-    } else if(parent->getKey() < key){
+      node->setParent(parent);
+    } else if(parent->getKey() < node->getKey()){
       parent->setRight(node);
+      node->setParent(parent);
     } else{ //Is equal
-      parent->setValue(value);
+      auto grandparent = parent->getParent();
+      auto left = parent->getLeft();
+      auto right = parent->getRight();
+      delete parent;
+      node->setParent(grandparent);
+      node->setLeft(left);
+      node->setRight(right);
+      if(grandparent != NULL){
+        if(grandparent->getKey() > node->getKey()){
+          grandparent->setLeft(node);
+        } else {
+          grandparent->setRight(node);
+        }
+      } else {
+        root = node;
+      }
     }
     return node;
+  }
+
+
+  Node<KeyType, ValueType> * insert(KeyType key, ValueType value){
+    
+    Node<KeyType, ValueType> * node = new Node<KeyType, ValueType>(key, value, NULL);
+      
+    return insert(node);
   }
 
   Node<KeyType, ValueType> * insert(std::pair<KeyType, ValueType> pair){
@@ -280,7 +304,7 @@ class BinarySearchTree {
   /**
    * Helper function to print the tree's contents
    */
-  void printRoot (Node<KeyType, ValueType> *r) const
+  virtual void printRoot (Node<KeyType, ValueType> *r) const
   {
     if (r != NULL)
       {
@@ -299,9 +323,10 @@ class BinarySearchTree {
   {
     if (r != NULL)
       {
-	deleteAll (r->getLeft());
-	deleteAll (r->getRight());
-	delete r;
+      	deleteAll (r->getLeft());
+      	deleteAll (r->getRight());
+        //std::cout<<"deleting " << r->getKey() << std::endl;
+      	delete r;
       }
   }
 };
