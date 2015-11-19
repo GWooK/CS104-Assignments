@@ -81,7 +81,24 @@ void parseInput(char * filename, map<char, set<char>> & countries){
 }
 
 bool mapIsValid(map<char, set<char>> & countries, RedBlackTree<char, int> countriesColors){
+	for(auto iter = countries.begin(); iter != countries.end(); iter++){
+		char country = iter->first;
+		auto cIt = countriesColors.find(country);
+		if(cIt != countriesColors.end()){
+			int color1 = cIt->second;
+			for(char adj : iter->second){ //Adjacency country
+				auto aIt = countriesColors.find(adj);
+				if(aIt != countriesColors.end()){
+					int color2 = aIt->second;
+					if(color1 != color2 && color2 != -1 && color1 != -1){
+						return false;
+					}
+				}
+			}
+		}
+	}
 
+	return true;
 }
 
 void solve(map<char, set<char>> & countries, RedBlackTree<char, int> countriesColors){
