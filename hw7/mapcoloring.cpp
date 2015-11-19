@@ -51,20 +51,45 @@ void parseInput(char * filename, map<char, set<char>> & countries){
 				countries[c].insert(previous);
 				countries[previous].insert(c);
 			}
+			previous = c;
 		}
 	}
 
 	//Vertically
-	for(int i = 0; i < nColumns; i++){
+	for(int i = 0; i < nRows; i++){
 		char previous = grid[0][i];
-		for(int j = 0; j < nRows; j++){
+		for(int j = 0; j < nColumns; j++){
 			char c = grid[i][j];
 			if(previous != c){
 				countries[c].insert(previous);
 				countries[previous].insert(c);
 			}
+			previous = c;
 		}
 	}
+
+
+	/*Print the set and adjacencies */
+	for(auto iter = countries.begin(); iter != countries.end(); iter++){
+		cout << iter->first	<< " : ";
+		auto set = iter->second;
+		for(auto c : set){
+			cout << c << " ";
+		}
+		cout << endl;
+	}
+}
+
+bool mapIsValid(map<char, set<char>> & countries, RedBlackTree<char, int> countriesColors){
+
+}
+
+void solve(map<char, set<char>> & countries, RedBlackTree<char, int> countriesColors){
+	/*Initialize*/
+	for(auto iter = countries.begin(); iter != countries.end(); iter++){
+		countriesColors.add(make_pair(iter->first, -1));
+	}
+
 }
 
 int main(int argc, char* argv[])
@@ -76,5 +101,9 @@ int main(int argc, char* argv[])
 
 	//Countries vectors
 	map<char, set<char>> countries;
+	RedBlackTree<char,int> countriesColors;
+
 	parseInput(argv[1], countries);
+
+	solve(countries, countriesColors);
 }
