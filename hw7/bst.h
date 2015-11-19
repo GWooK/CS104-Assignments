@@ -102,15 +102,15 @@ class BinarySearchTree {
     std::cout << "\n";
   }
 
-  Node<KeyType, ValueType> * insert(Node<KeyType, ValueType> * node){
-    //Inserting a root node
+  Node<KeyType, ValueType> * add(Node<KeyType, ValueType> * node){
+    //adding a root node
     if(root == NULL){
       //Node<KeyType, ValueType> * node = new Node<KeyType, ValueType>(key, value, NULL);
       root = node;
       return node;
     }
 
-    //Inserting a leaf node
+    //adding a leaf node
     Node<KeyType, ValueType> * parent = root;
     Node<KeyType, ValueType> * next = parent->getKey() > node->getKey()? parent->getLeft():parent->getRight();
     while(next != NULL){
@@ -149,15 +149,15 @@ class BinarySearchTree {
   }
 
 
-  Node<KeyType, ValueType> * insert(KeyType key, ValueType value){
+  Node<KeyType, ValueType> * add(KeyType key, ValueType value){
     
     Node<KeyType, ValueType> * node = new Node<KeyType, ValueType>(key, value, NULL);
       
-    return insert(node);
+    return add(node);
   }
 
-  Node<KeyType, ValueType> * insert(std::pair<KeyType, ValueType> pair){
-    return insert(pair.first, pair.second);
+  Node<KeyType, ValueType> * add(std::pair<KeyType, ValueType> pair){
+    return add(pair.first, pair.second);
   }
     
   /**

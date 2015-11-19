@@ -73,9 +73,9 @@ template <class KeyType, class ValueType>
 class RedBlackTree : public BinarySearchTree<KeyType, ValueType>
 {
 public:
-  void insert (const std::pair<const KeyType, ValueType>& new_item)
+  RedBlackNode<KeyType,ValueType> * add (const std::pair<const KeyType, ValueType>& new_item)
   /* This one is yours to implement.
-     It should insert the (key, value) pair to the tree, 
+     It should add the (key, value) pair to the tree, 
      making sure that it remains a valid Red-Black Tree.
      If the key is already in the tree
      (with a possibly differ
@@ -85,11 +85,12 @@ public:
   {
 
     RedBlackNode<KeyType,ValueType>* node = new RedBlackNode<KeyType,ValueType>(new_item.first, new_item.second, NULL);
-    BinarySearchTree<KeyType, ValueType>::insert(node);
+    BinarySearchTree<KeyType, ValueType>::add(node);
 
-    std::cout << "Inserting "<<new_item.first << std::endl;
+    //std::cout << "Inserting "<<new_item.first << std::endl;
     fixRBTree(static_cast<RedBlackNode<KeyType,ValueType>*>(node));
-    print();
+    //print();
+    return node;
   }
 
   void fixRBTree(RedBlackNode<KeyType,ValueType>* rbnode){
@@ -109,26 +110,27 @@ public:
 
           } else { 
             //Uncle is black cases
-            std::cout << "Black case" << std::endl;
+            //std::cout << "Black case" << std::endl;
 
             //Left Left case
             if(parent->getKey() < grandparent->getKey() && rbnode->getKey() < parent->getKey()){
-              std::cout << "left left case" << std::endl;
+              //std::cout << "left left case" << std::endl;
               rotateRight(grandparent);
               parent->setColor(black);
               grandparent->setColor(red);
             } 
             //Left Right case
             else if(parent->getKey() < grandparent->getKey() && rbnode->getKey() > parent->getKey()){
-              std::cout << "left right case" << std::endl;
+              //std::cout << "left right case" << std::endl;
               rotateLeft(parent);
               rotateRight(grandparent);
+              parent = parent->getParent();
               parent->setColor(black);
               grandparent->setColor(red);
             }
             //Right Right case
             else if(parent->getKey() > grandparent->getKey() && rbnode->getKey() > parent->getKey()){
-              std::cout << "right right case" << std::endl;
+              //std::cout << "right right case" << std::endl;
               rotateLeft(grandparent);
               grandparent->setColor(red);
               parent->setColor(black);
@@ -136,14 +138,17 @@ public:
 
             //Right Left case
             else if(parent->getKey() > grandparent->getKey() && rbnode->getKey() < parent->getKey()){
-              std::cout << "right left case" << std::endl;
+              //std::cout << "right left case" << std::endl;
               rotateRight(parent);
               rotateLeft(grandparent);
               grandparent->setColor(red);
+              parent = parent->getParent();
               parent->setColor(black);
             }
+            break;
           }
           rbnode = grandparent;
+          continue;
         }
         
         else{
@@ -183,6 +188,13 @@ public:
         printRoot (r->getRight());
         std::cout << "]";
       }
+  }
+
+  /*Just for test cases */
+  Color getColor(KeyType key){
+    auto node = BinarySearchTree<KeyType, ValueType>::internalFind(key);
+    auto rbnode = static_cast<RedBlackNode<KeyType,ValueType>*>(node);
+    return rbnode->getColor();
   }
 
 private:
