@@ -1,4 +1,4 @@
--Problem 1 answers is the Problem1.pdf file
--All C++ code is using C++11 feature, please use -std=c++11 flag when compiling
--My test files are on the tests folder, to run type: make tests
--To compile problem4: g++ mapcoloring.cpp -std=c++11 -o map or just make mapcoloring
+- Problem 1 answers is the Problem1.pdf file
+- All C++ code is using C++11 feature, please use -std=c++11 flag when compiling
+- My test files are on the tests folder, to run type: make tests
+- To compile problem4: g++ mapcoloring.cpp -std=c++11 -o map or just make mapcoloring
