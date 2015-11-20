@@ -186,6 +186,9 @@ class BinarySearchTree {
      * Advances the iterator's location using an in-order sequencing
      */
     iterator& operator++(){
+      if(curr == NULL)
+        return *this;
+
       curr = sucessor(curr);
       return *this;
     }
