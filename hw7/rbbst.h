@@ -85,15 +85,19 @@ public:
   {
 
     RedBlackNode<KeyType,ValueType>* node = new RedBlackNode<KeyType,ValueType>(new_item.first, new_item.second, NULL);
-    BinarySearchTree<KeyType, ValueType>::add(node);
+    node = static_cast<RedBlackNode<KeyType,ValueType>*>(BinarySearchTree<KeyType, ValueType>::add(node));
 
     //std::cout << "Inserting "<<new_item.first << std::endl;
-    fixRBTree(static_cast<RedBlackNode<KeyType,ValueType>*>(node));
+    fixRBTree(node);
     //print();
     return node;
   }
 
   void fixRBTree(RedBlackNode<KeyType,ValueType>* rbnode){
+    if(rbnode == NULL){
+      std::cerr << "rbnode is NULL" << std::endl;
+    }
+
     while(rbnode != BinarySearchTree<KeyType, ValueType>::root){
       auto parent = rbnode->getParent();
 

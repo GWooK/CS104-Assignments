@@ -34,6 +34,12 @@ $(BIN_DIR)/bstiteratortest: $(TESTS_DIR)/bstiteratortest.cpp $(DIRSTAMP)
 $(BIN_DIR)/rbtreetest: $(TESTS_DIR)/rbtreetest.cpp $(DIRSTAMP)
 	$(CC) $(CPPFLAGS) $< $(GTEST_LL) -o $@
 
+$(BIN_DIR)/mapcoloring: 
+	$(CC) $(CPPFLAGS) $< $(GTEST_LL) -o $@
+
+mapcoloring: 
+	$(CC) mapcoloring.cpp $(CPPFLAGS) -o $(BIN_DIR)/$@
+
 tests: $(TEST_TARGETS)
 	-@$(BIN_DIR)/bstiteratortest
 	-@$(BIN_DIR)/rbtreetest

@@ -113,7 +113,7 @@ class BinarySearchTree {
     //adding a leaf node
     Node<KeyType, ValueType> * parent = root;
     Node<KeyType, ValueType> * next = parent->getKey() > node->getKey()? parent->getLeft():parent->getRight();
-    while(next != NULL){
+    while(next != NULL && root->getKey() != node->getKey()){
       parent = next;
       if(parent->getKey() == node->getKey())
         break;
@@ -128,22 +128,9 @@ class BinarySearchTree {
       parent->setRight(node);
       node->setParent(parent);
     } else{ //Is equal
-      auto grandparent = parent->getParent();
-      auto left = parent->getLeft();
-      auto right = parent->getRight();
-      delete parent;
-      node->setParent(grandparent);
-      node->setLeft(left);
-      node->setRight(right);
-      if(grandparent != NULL){
-        if(grandparent->getKey() > node->getKey()){
-          grandparent->setLeft(node);
-        } else {
-          grandparent->setRight(node);
-        }
-      } else {
-        root = node;
-      }
+      parent->setValue(node->getValue());
+      delete node;
+      node = parent;
     }
     return node;
   }

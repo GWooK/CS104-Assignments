@@ -7,8 +7,11 @@
 
 using namespace std;
 
+/*Make it true to print debug messages*/
+bool print = false;
+
 //Input parser
-void parseInput(char * filename, map<char, set<char>> & countries){
+void parseInput(char * filename, map<char, set<char>> & countries, vector<vector<char>> & grid){
 	ifstream input(filename);
 	if(!input.is_open()){
 
@@ -20,7 +23,7 @@ void parseInput(char * filename, map<char, set<char>> & countries){
 	input >> nColumns;
 
 	/*read the map*/
-	vector<vector<char>> grid;
+	//vector<vector<char>> grid;
 
 	for(int i = 0; i < nRows; i++){
 		vector<char> row;
@@ -32,21 +35,12 @@ void parseInput(char * filename, map<char, set<char>> & countries){
 		grid.push_back(row);
 	}
 
-	//Print the grid
-	for(auto row : grid){
-		for(auto c : row){
-			cout << c;
-		}
-		cout << endl;
-	}
-
-
 	countries.clear();
-	//Horizontally
-	for(int i = 0; i < nRows; i++){
-		auto row = grid[i];
-		char previous = row[0];
-		for(auto c: row){
+	//Vertically
+	for(int i = 0; i < nColumns; i++){
+		char previous = grid[0][i];
+		for(int j = 0; j < nRows; j++){
+			char c = grid[j][i];
 			if(previous != c){
 				countries[c].insert(previous);
 				countries[previous].insert(c);
@@ -70,43 +64,99 @@ void parseInput(char * filename, map<char, set<char>> & countries){
 
 
 	/*Print the set and adjacencies */
-	for(auto iter = countries.begin(); iter != countries.end(); iter++){
-		cout << iter->first	<< " : ";
-		auto set = iter->second;
-		for(auto c : set){
-			cout << c << " ";
+	if(print){
+		cout << "Adjacency list" << endl;
+		for(auto iter = countries.begin(); iter != countries.end(); iter++){
+			cout << iter->first	<< " : ";
+			auto set = iter->second;
+			for(auto c : set){
+				cout << c << " ";
+			}
+			cout << endl;
 		}
-		cout << endl;
 	}
+	
 }
 
-bool mapIsValid(map<char, set<char>> & countries, RedBlackTree<char, int> countriesColors){
-	for(auto iter = countries.begin(); iter != countries.end(); iter++){
-		char country = iter->first;
-		auto cIt = countriesColors.find(country);
-		if(cIt != countriesColors.end()){
-			int color1 = cIt->second;
-			for(char adj : iter->second){ //Adjacency country
-				auto aIt = countriesColors.find(adj);
-				if(aIt != countriesColors.end()){
-					int color2 = aIt->second;
-					if(color1 != color2 && color2 != -1 && color1 != -1){
-						return false;
-					}
-				}
-			}
+bool mapIsValid(char country, map<char, set<char>> & countries, RedBlackTree<char, int> & countriesColors){
+	
+	int color = countriesColors.find(country)->second;
+
+	for(char adj : countries[country]){
+		int adColor = countriesColors.find(adj)->second;
+		if(color == adColor){
+			return false;
 		}
 	}
 
 	return true;
 }
 
-void solve(map<char, set<char>> & countries, RedBlackTree<char, int> countriesColors){
-	/*Initialize*/
-	for(auto iter = countries.begin(); iter != countries.end(); iter++){
-		countriesColors.add(make_pair(iter->first, -1));
+bool solveHelper(map<char, set<char>> & countries, RedBlackTree<char, int> & countriesColors, map<char, set<char>>::iterator iter){
+	if(iter == countries.end()){
+		return true;
 	}
 
+	char country = iter->first;
+	//cout << country << endl;
+
+	int i = 1;
+	do{
+		//cout << country << " n: " << i << endl;
+		countriesColors.add(make_pair(country, i));
+		if(mapIsValid(country, countries, countriesColors)){
+			if(solveHelper(countries, countriesColors, ++iter))
+			{
+				return true;
+			}
+			else{
+				countriesColors.add(make_pair(country, 1));
+				iter--;
+			}
+		}
+		i++;
+	} while(i < 5);
+
+
+	
+	return false;
+}
+
+void solve(map<char, set<char>> & countries, RedBlackTree<char, int> &countriesColors){
+	/*Initialize*/
+	for(auto iter = countries.begin(); iter != countries.end(); iter++){
+		//cout << iter->first << " n: " << 0 << endl;
+		countriesColors.add(make_pair(iter->first, 1));
+	}
+
+	solveHelper(countries, countriesColors, countries.begin());
+}
+
+void printCountries(vector<vector<char>> & grid, map<char, set<char>> & countries,  RedBlackTree<char, int> & countriesColors){
+	//Colors
+	cout << "Colors" << endl;
+	for(auto iter = countries.begin(); iter != countries.end(); iter++){
+		cout << iter->first << " : " << countriesColors.find(iter->first)->second << endl;
+	}
+
+
+	//Print the grid
+	for(auto row : grid){
+		for(auto c : row){
+			int color = countriesColors.find(c)->second;
+			//Color the map :)
+			switch(color){
+				case 1: cout << "\x1b[31m"; break;
+      			case 2: cout << "\x1b[34m"; break;
+                case 3: cout << "\x1b[37m"; break;
+                case 4: cout << "\x1b[32m"; break;
+			}
+			cout << c;
+		}
+		cout << endl;
+	}
+
+	cout << "\x1b[0m"; //restore the color
 }
 
 int main(int argc, char* argv[])
@@ -119,8 +169,16 @@ int main(int argc, char* argv[])
 	//Countries vectors
 	map<char, set<char>> countries;
 	RedBlackTree<char,int> countriesColors;
+	vector<vector<char>> grid;
 
-	parseInput(argv[1], countries);
+	parseInput(argv[1], countries, grid);
 
 	solve(countries, countriesColors);
+
+	if(print)
+		printCountries(grid, countries, countriesColors);
+
+	for(auto iter = countries.begin(); iter != countries.end(); iter++){
+		cout << iter->first << " " << countriesColors.find(iter->first)->second << endl;
+	}
 }
