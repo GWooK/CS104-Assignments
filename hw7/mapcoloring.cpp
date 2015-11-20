@@ -8,7 +8,7 @@
 using namespace std;
 
 /*Make it true to print debug messages*/
-bool print = false;
+bool print = true;
 
 //Input parser
 void parseInput(char * filename, map<char, set<char>> & countries, vector<vector<char>> & grid){
@@ -110,14 +110,15 @@ bool solveHelper(map<char, set<char>> & countries, RedBlackTree<char, int> & cou
 				return true;
 			}
 			else{
-				countriesColors.add(make_pair(country, 1));
+				countriesColors.add(make_pair(country, 0));
 				iter--;
 			}
 		}
 		i++;
 	} while(i < 5);
 
-
+	countriesColors.add(make_pair(country, 0));
+	iter--;
 	
 	return false;
 }
@@ -126,7 +127,7 @@ void solve(map<char, set<char>> & countries, RedBlackTree<char, int> &countriesC
 	/*Initialize*/
 	for(auto iter = countries.begin(); iter != countries.end(); iter++){
 		//cout << iter->first << " n: " << 0 << endl;
-		countriesColors.add(make_pair(iter->first, 1));
+		countriesColors.add(make_pair(iter->first, 0));
 	}
 
 	solveHelper(countries, countriesColors, countries.begin());
