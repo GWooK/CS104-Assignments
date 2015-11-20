@@ -1,0 +1,6 @@
+/*Just for test cases */
+  Color getColor(KeyType key){
+    auto node = BinarySearchTree<KeyType, ValueType>::internalFind(key);
+    auto rbnode = static_cast<RedBlackNode<KeyType,ValueType>*>(node);
+    return rbnode->getColor();
+  }
