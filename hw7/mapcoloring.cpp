@@ -8,7 +8,7 @@
 using namespace std;
 
 /*Make it true to print debug messages*/
-bool print = false;
+bool print = true;
 
 //Input parser
 void parseInput(char * filename, map<char, set<char>> & countries, vector<vector<char>> & grid){

@@ -19,7 +19,7 @@ MySetString MySetString::set_intersection(const MySetString& other) {
 
 	it = other.begin();
 	while(it != other.end()){
-		if(other.count(*it) > 0){
+		if(count(*it) > 0){
 			newSet.insert(*it);
 		}
 		it++;

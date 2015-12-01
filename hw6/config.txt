@@ -1,3 +1,3 @@
-INDEX-FILE = data/index.txt
+INDEX-FILE = data9/index.txt
 STEP_NUMBER = 30
 RESTART_PROBABILITY = 0.15
