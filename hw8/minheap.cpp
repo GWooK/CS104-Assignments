@@ -25,11 +25,12 @@ void MinHeap::add (std::string item, int priority){
 	
 	count++;
 
+	auto priority_pair = std::make_pair(item, items.size()-1);	
+	priorities.add(priority_pair);
+
 	int loc = trickleUp(items.size()-1);
 
-	auto priority_pair = std::make_pair(item, loc);	
-
-	priorities.add(priority_pair);
+	
 }
 
  /* returns the element with smallest priority.  If
@@ -56,7 +57,7 @@ void MinHeap::remove (){
 	items.pop_back();
 	count--;
 
-	heapify(0);
+	trickleDown(0);
 }
  
  /* updates the priority for the specified element.
@@ -70,11 +71,11 @@ void MinHeap::update (std::string item, int priority){
 	try{
 		int loc = priorities.find(item);
 		items[loc].second = priority;
-		loc = trickleUp(loc);
+		
+		heapify();
+		//updatePriorities();
 
-		priorities.update(items[loc]);
-
-		heapify(0);
+		
 	} catch (std::exception e){
 		throw e;
 	}
@@ -86,9 +87,25 @@ bool MinHeap::isEmpty (){
 }
 
 void MinHeap::swap(int i, int j){
+	if(i < 0 || i > items.size()-1 || j < 0 || j > items.size()-1)
+		return;
+
 	auto temp = items[i];
 	items[i] = items[j];
 	items[j] = temp;
+
+		
+	try{
+		priorities.update(std::make_pair(items[i].first, i));
+	} catch(std::exception e){
+		priorities.add(std::make_pair(items[i].first, i));
+	}
+
+	try{
+		priorities.update(std::make_pair(items[j].first, j));
+	} catch(std::exception e){
+		priorities.add(std::make_pair(items[j].first, j));
+	}
 }
 
 /* return the parent of i */
@@ -126,7 +143,10 @@ int MinHeap::trickleUp(int loc){
 	return loc;
 }
 
-void MinHeap::heapify(int i){
+void MinHeap::trickleDown(int i){
+	if(i < 0 || i > count)
+		return;
+
 	if(kchild(i, 0) == -1)
 		return;
 
@@ -151,9 +171,20 @@ void MinHeap::heapify(int i){
 
 	if(items[i].second > items[smaller].second){
 		swap(smaller, i);
-		heapify(smaller);
+		
+		trickleDown(smaller);
+
 	} else if(items[i].second == items[smaller].second && items[i].first > items[smaller].first){
 		swap(smaller, i);
-		heapify(smaller);
+		
+		trickleDown(smaller);
 	}
 }
+
+void MinHeap::heapify(){
+	for(int i = count; i >= 0; --i){
+		trickleDown(i);
+	}
+}
+
+

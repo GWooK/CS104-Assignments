@@ -4,6 +4,7 @@
 #include <exception>
 #include <string>
 #include "minheap.h"
+#include <iostream>
 using namespace std;
 
 TEST(HashTableTest, SimpleAdd)
@@ -206,13 +207,14 @@ TEST(MinHeapTest, remove)
 	}
 }
 
-/*
+
 
 TEST(MinHeapTest, update)
 {
 	for (int i = 2; i < 6; i++) {
 		MinHeap m(i);
 		m.add("a", 10);
+		m.update("a", 11);
 		m.add("b", 5);
 		m.add("c", 2);
 		EXPECT_EQ(m.peek(), "c");
@@ -232,9 +234,11 @@ TEST(MinHeapTest, HeapSort)
 		MinHeap m(i);
 		for (int i = 0; i < 1024; i++) {
 			int t = ((1023-i)*31+7)%1024;
+			//cout << "inserting " << i << endl;
 			m.add(to_string(i), t);
 		}
 		for (int i = 0; i < 1024; i++) {
+			//cout << "updating " << i << endl;
 			m.update(to_string(i), 1023-i);
 		}
 		for (int i = 0; i < 1024; i++) {
@@ -247,5 +251,3 @@ TEST(MinHeapTest, HeapSort)
 		EXPECT_EQ(m.isEmpty(), true);
 	}
 }
-
-*/

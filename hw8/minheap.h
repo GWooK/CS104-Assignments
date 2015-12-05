@@ -44,11 +44,14 @@ class MinHeap {
     int count;
     int d;
 
-    void heapify(int i);
+    void heapify();
 
     int parent(int i);
     int kchild(int parent, int k);
     void swap(int i, int j);
 
     int trickleUp(int loc);
+    void trickleDown(int i);
+
+    void updatePriorities();
 };
