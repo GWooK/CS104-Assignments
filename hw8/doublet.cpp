@@ -7,6 +7,7 @@
 #include <list>
 #include <unordered_map>
 #include <unordered_set>
+#include <stack>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ unordered_set<string> valid_words;
 unordered_map<string, node *> graph;
 string start;
 string finish;
+int expansions;
 
 void calculate_adjacencies(node * n){
 	for(int i = 0; i < (int)n->word.size(); i++){
@@ -50,6 +52,11 @@ void init_wordgraph(const char filename[]){
 		line = convToLower(line);
 		valid_words.insert(line);
 		//cout << line << endl;
+	}
+
+	if(!valid_words.count(start) || !valid_words.count(finish)){
+		valid_words.insert(start);
+		valid_words.insert(finish);
 	}
 
 	//Initialize graph
@@ -111,6 +118,8 @@ bool search(string start, string last){
 	closedSet.insert(current);
 
 	do{
+		expansions++;
+
 		//Initialize
 		calculate_adjacencies(current);
 
@@ -168,18 +177,31 @@ int main(int argc, char const *argv[])
 
   	start = string(argv[1]);
   	finish = string(argv[2]);
+
+  	if(start.size() != finish.size()){
+  		cerr << "the words should have the same size!" << endl;
+  		return 1;
+  	}
+
   	init_wordgraph(argv[3]);
 
   	bool found = search(start, finish);
-  	cout << found << endl;
+  	//cout << found << endl;
 
   	if(found){
+  		stack<string> st;
   		node * current = graph[finish];
 	  	while(current->word != graph[start]->word){
-	  		cout << current->word << endl;
+	  		st.push(current->word);
 	  		current = current->parent;
 	  	}
-	  	cout << current->word << endl;
+	  	st.push(current->word);
+
+	  	while(!st.empty()){
+	  		cout << st.top() << " ";
+	  		st.pop();
+	  	}
+	  	cout << endl << "expansions = " << expansions << endl;
   	}
 
 	return 0;
