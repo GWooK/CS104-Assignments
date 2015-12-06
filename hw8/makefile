@@ -8,7 +8,7 @@ BIN_DIR   = bin
 TESTS_DIR = tests
 DIRSTAMP  = $(BIN_DIR)/.dirstamp
 GTEST_LL  = -I/usr/local/opt/gtest/include/ -lgtest -lgtest_main -pthread
-TEST_TARGETS = $(BIN_DIR)/tests
+TEST_TARGETS = $(BIN_DIR)/tests $(BIN_DIR)/doublet
 
 .PHONY: all clean $(TEST_TARGETS)
 
@@ -31,6 +31,10 @@ $(BIN_DIR)/%.o: %.cpp $(DIRSTAMP)
 $(BIN_DIR)/tests: hashtable.o minheap.o $(DIRSTAMP) 
 	$(CC) $(CPPFLAGS) tests.cpp hashtable.o minheap.o $(GTEST_LL) -o $@
 
+$(BIN_DIR)/doublet: util.o
+	$(CC) $(CPPFLAGS) doublet.cpp util.o hashtable.o minheap.o -o $@
+
 tests: $(TEST_TARGETS)
 	-@$(BIN_DIR)/tests
+	-@$(BIN_DIR)/doublet
 	-@echo "--- All Tested!---"

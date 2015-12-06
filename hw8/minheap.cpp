@@ -70,9 +70,17 @@ void MinHeap::update (std::string item, int priority){
 
 	try{
 		int loc = priorities.find(item);
+		int oldPriority = items[loc].second;
+
 		items[loc].second = priority;
+
+		if(oldPriority >= priority){
+			trickleUp(loc);
+		} else{
+			heapify();
+		}
 		
-		heapify();
+		
 		//updatePriorities();
 
 		
