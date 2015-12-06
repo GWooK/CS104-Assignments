@@ -135,7 +135,9 @@ bool search(string start, string last){
 					n->parent = current;
 					n->g = new_g;
 					n->f = n->g + n->h;
-					minF.update(n->word, n->f);
+
+					int priority = n->f * ((int)current->word.size()+1) + n->h;
+					minF.update(n->word, priority);
 				}
 			} else {
 				n->parent = current;
@@ -143,7 +145,8 @@ bool search(string start, string last){
 				n->h = compute_h(n);
 				n->f = n->g + n->h;
 				openSet.insert(n);
-				minF.add(n->word, n->f);
+				int priority = n->f * ((int)current->word.size()+1) + n->h;
+				minF.add(n->word, priority);
 			}
 		}
 

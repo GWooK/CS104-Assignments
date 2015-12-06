@@ -218,7 +218,7 @@ TEST(MinHeapTest, update)
 		m.add("b", 5);
 		m.add("c", 2);
 		EXPECT_EQ(m.peek(), "c");
-		m.update("c", 8);
+		m.update("c", 34);
 		EXPECT_EQ(m.peek(), "b");
 		m.update("a", 3);
 		EXPECT_EQ(m.peek(), "a");
