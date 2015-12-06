@@ -205,6 +205,8 @@ int main(int argc, char const *argv[])
 	  		st.pop();
 	  	}
 	  	cout << endl << "expansions = " << expansions << endl;
+  	} else {
+  		cout << "can't find a valid path!" << endl;
   	}
 
 	return 0;

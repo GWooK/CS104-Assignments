@@ -1,4 +1,5 @@
 #include "minheap.h"
+#include "util.o"
 #include <exception>
 
 MinHeap::MinHeap (int d){
